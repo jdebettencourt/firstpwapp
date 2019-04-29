@@ -26,8 +26,9 @@ const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const FORECAST_DELAY = 0;
 
 // CODELAB: If running locally, set your Dark Sky API key here
-const API_KEY = process.env.DARKSKY_API_KEY;
-const BASE_URL = `https://api.darksky.net/forecast`;
+//const API_KEY = process.env.DARKSKY_API_KEY;
+const API_KEY = "01cfa1f338cb65fa0a5db70d91a78524";
+const BASE_URL = "https://api.darksky.net/forecast";
 
 // Fake forecast data used if we can't reach the Dark Sky API
 const fakeForecast = {
@@ -162,7 +163,9 @@ function startServer() {
   const app = express();
 
   // Redirect HTTP to HTTPS,
-  app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+  // app.use(redirectToHTTPS([/0.0.0.0:(\d{4})/], [], 301));
+  // 
+  // commented out due to redirect errors need to set host = 0.0.0.0 (all interfaces)
 
   // Logging for each request
   app.use((req, resp, next) => {
@@ -184,9 +187,9 @@ function startServer() {
   app.use(express.static('public'));
 
   // Start the server
-  return app.listen('8000', () => {
+  return app.listen('3000', "0.0.0.0", () => {
     // eslint-disable-next-line no-console
-    console.log('Local DevServer Started on port 8000...');
+    console.log('DevServer Started on port 3000...');
   });
 }
 
